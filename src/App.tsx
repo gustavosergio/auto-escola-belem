@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   BookOpen,
   Instagram,
-  Navigation,
+  BadgePlus,
   MoveUpRight,
 } from 'lucide-react';
 
@@ -44,7 +44,7 @@ const services = [
     items: [
       'Orientação para começar',
       'Preparação teórica e prática',
-      'Consulte categorias e disponibilidade',
+      'Categorias A e B: moto e carro',
     ],
     tag: 'SEU PRIMEIRO PASSO',
   },
@@ -64,13 +64,25 @@ const services = [
     title: 'Classificação',
     subtitle: 'Seu próximo objetivo ao volante.',
     icon: Route,
-    text: 'Quer conhecer novas possibilidades para sua habilitação? Fale com a equipe sobre o serviço de classificação e as opções disponíveis.',
+    text: 'Sua próxima conquista pode ser uma nova categoria. A Belém oferece classificação: converse com a equipe sobre a categoria D e os próximos passos para o seu objetivo.',
     items: [
-      'Consulta de opções e categorias',
+      'Classificação para a categoria D',
       'Orientação personalizada',
       'Condições direto com a equipe',
     ],
     tag: 'NOVAS POSSIBILIDADES',
+  },
+  {
+    title: 'Adição de categoria',
+    subtitle: 'Mais possibilidades na sua CNH.',
+    icon: BadgePlus,
+    text: 'Já tem habilitação e quer adicionar uma categoria? Conheça as opções da Belém para moto e carro e converse com a equipe para planejar seu próximo passo.',
+    items: [
+      'Adição nas categorias A e B',
+      'Orientação para quem já tem CNH',
+      'Consulte condições e disponibilidade',
+    ],
+    tag: 'AMPLIE SEUS CAMINHOS',
   },
   {
     title: 'Aulas para habilitados',
@@ -99,6 +111,10 @@ const services = [
 ];
 const questions = [
   [
+    'A Belém faz adição e classificação?',
+    'Sim! Oferecemos adição de categoria e classificação. Trabalhamos com as categorias A, B e D. Converse com a equipe sobre a categoria desejada para entender as condições e os próximos passos para o seu caso.',
+  ],
+  [
     'Como começo minha primeira habilitação?',
     'Escolha uma das nossas unidades e fale com a equipe pelo WhatsApp. Você recebe informações sobre as opções disponíveis, documentos, etapas e condições para começar.',
   ],
@@ -122,117 +138,6 @@ const questions = [
 const whatsapp = (unit: number, service = 'os serviços da autoescola') =>
   `https://wa.me/${units[unit].phone}?text=${encodeURIComponent(`Olá, Autoescola Belém! Vim pelo site e gostaria de saber mais sobre ${service}. Tenho interesse na unidade ${units[unit].name}.`)}`;
 
-function RoadArt() {
-  return (
-    <div className="road-art" aria-hidden="true">
-      <div className="art-grid" />
-      <div className="art-top">
-        <span>RECIFE, PE</span>
-        <span>08°03′ S · 34°52′ O</span>
-      </div>
-      <div className="freedom">
-        LIBERDADE
-        <br />
-        EM MOVIMENTO.
-      </div>
-      <svg viewBox="0 0 600 620" className="road-svg">
-        <defs>
-          <filter id="shadow">
-            <feDropShadow dx="8" dy="12" stdDeviation="10" floodOpacity=".3" />
-          </filter>
-          <linearGradient id="car" x2="1" y2="1">
-            <stop stopColor="#fff0a1" />
-            <stop offset=".35" stopColor="#ffd84c" />
-            <stop offset="1" stopColor="#d39e12" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
-          fill="none"
-          stroke="#45483f"
-          strokeWidth="140"
-        />
-        <path
-          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
-          fill="none"
-          stroke="#252821"
-          strokeWidth="128"
-        />
-        <path
-          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
-          fill="none"
-          stroke="#e4d99c"
-          strokeWidth="3"
-          strokeDasharray="17 18"
-          opacity=".7"
-        />
-        <path
-          d="M405 710V445 Q405 335 295 335H242 Q160 335 160 252 Q160 177 242 177H640"
-          fill="none"
-          stroke="#f3ca2d"
-          strokeWidth="2"
-        />
-        <path
-          d="M315 710V445 Q315 425 295 425H242 Q70 425 70 252 Q70 87 242 87H640"
-          fill="none"
-          stroke="#f3ca2d"
-          strokeWidth="2"
-        />
-        <g transform="translate(334 470) rotate(0)" filter="url(#shadow)">
-          <rect x="-6" y="20" width="11" height="23" rx="4" fill="#10130f" />
-          <rect x="49" y="20" width="11" height="23" rx="4" fill="#10130f" />
-          <rect x="-5" y="82" width="10" height="23" rx="4" fill="#10130f" />
-          <rect x="49" y="82" width="10" height="23" rx="4" fill="#10130f" />
-          <rect width="54" height="120" rx="19" fill="url(#car)" />
-          <path d="M8 32Q27 23 46 32L43 53H11Z" fill="#283b38" />
-          <path d="M11 83H43L46 100Q27 106 8 100Z" fill="#283b38" />
-          <rect x="12" y="55" width="30" height="25" rx="5" fill="#ffe47c" />
-          <path d="M6 39V86M48 39V86" stroke="#ac871d" strokeWidth="2" />
-          <rect x="6" y="8" width="12" height="5" rx="2" fill="#fff8dc" />
-          <rect x="36" y="8" width="12" height="5" rx="2" fill="#fff8dc" />
-          <path d="M7 112h10m20 0h10" stroke="#b2472d" strokeWidth="4" />
-        </g>
-        <g transform="translate(362 206) rotate(-9)">
-          <rect
-            width="102"
-            height="108"
-            rx="9"
-            fill="#171a15"
-            opacity=".25"
-            transform="translate(8 10)"
-          />
-          <rect width="102" height="108" rx="9" fill="#f6ca2d" />
-          <rect
-            x="7"
-            y="7"
-            width="88"
-            height="94"
-            rx="5"
-            fill="none"
-            stroke="#26291f"
-            strokeWidth="2"
-          />
-          <path
-            d="M35 78V35m0 0L20 51m15-16 15 16M67 77V34m0 43L52 61m15 16 15-16"
-            stroke="#24271f"
-            strokeWidth="6"
-            fill="none"
-          />
-        </g>
-      </svg>
-      <div className="journey-note">
-        <span className="pulse-dot" /> PRÓXIMA PARADA
-        <span>
-          Sua independência <ArrowUpRight size={18} />
-        </span>
-      </div>
-      <div className="art-bottom">
-        <span>SEU FUTURO TEM NOVOS CAMINHOS.</span>
-        <Navigation size={20} />
-      </div>
-    </div>
-  );
-}
 export default function App() {
   const [menu, setMenu] = useState(false);
   const [service, setService] = useState(0);
@@ -314,8 +219,8 @@ export default function App() {
               </svg>
             </h1>
             <p>
-              A primeira habilitação. A confiança de voltar ao volante. Seja qual for o seu próximo
-              passo, a Belém vai com você.
+              Da primeira habilitação à adição e classificação. Conquiste novos caminhos com as
+              categorias A, B e D.
             </p>
             <div className="hero-buttons">
               <button className="btn btn-yellow" onClick={() => contact(0)}>
@@ -336,7 +241,29 @@ export default function App() {
               </span>
             </div>
           </div>
-          <RoadArt />
+          <figure className="campaign-art">
+            <img
+              src="/images/categorias-abd.png"
+              alt="Aqui tem! Categorias A, B e D na Autoescola Belém, com moto, ônibus e carro da escola."
+              width="399"
+              height="501"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <div>
+                <span className="eyebrow">MOTO, CARRO E ÔNIBUS</span>
+                <strong>Seu próximo caminho tem lugar aqui.</strong>
+              </div>
+              <button
+                className="campaign-link"
+                onClick={() =>
+                  contact(services.findIndex((s) => s.title === 'Adição de categoria'))
+                }
+              >
+                Quero adicionar uma categoria <ArrowUpRight size={18} />
+              </button>
+            </figcaption>
+          </figure>
         </section>
         <div className="ribbon">
           <span>
@@ -344,15 +271,15 @@ export default function App() {
           </span>
           <i>✳</i>
           <span>
-            <RefreshCw /> RENOVAÇÃO
+            <BadgePlus /> ADIÇÃO DE CATEGORIA
+          </span>
+          <i>✳</i>
+          <span>
+            <Route /> CLASSIFICAÇÃO
           </span>
           <i>✳</i>
           <span>
             <ShieldCheck /> AULAS PARA HABILITADOS
-          </span>
-          <i>✳</i>
-          <span>
-            <Route /> NOVOS CAMINHOS
           </span>
         </div>
         <section id="servicos" className="section services">
@@ -394,8 +321,9 @@ export default function App() {
                         e.key === 'Home'
                           ? 0
                           : e.key === 'End'
-                            ? 4
-                            : (i + (e.key === 'ArrowDown' ? 1 : 4)) % 5;
+                            ? services.length - 1
+                            : (i + (e.key === 'ArrowDown' ? 1 : services.length - 1)) %
+                              services.length;
                       setService(next);
                       document.getElementById(`service-tab-${next}`)?.focus();
                     }
@@ -593,7 +521,7 @@ export default function App() {
                 <div id={`answer-${i}`} hidden={faq !== i}>
                   <p>
                     {a}
-                    {i === 4 && (
+                    {q === 'Posso treinar para a prova teórica?' && (
                       <>
                         {' '}
                         <a href="https://linktr.ee/cfcbelem" target="_blank" rel="noreferrer">

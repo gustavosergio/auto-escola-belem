@@ -41,9 +41,9 @@ Informações consultadas em 31/10/2026:
 - https://autoescolabelem.wixsite.com/autoescolabelem — fotografia histórica da fachada, convertida para WebP. Confirmar com o proprietário se representa a fachada atual antes de publicação comercial.
 - https://www.instagram.com/cfcbelem/ — link oficial fornecido pelo cliente; conteúdo indisponível para leitura automatizada.
 
-Logo obtido do Linktree oficial. Ilustração de estrada criada em SVG para este projeto. Fontes Barlow Condensed e DM Sans carregadas do Google Fonts, com fallback local. Ícones Lucide.
+Logo obtido do Linktree oficial. Arte de campanha com moto, carro e ônibus fornecida por Gustavo em 31/10/2026, preservada integralmente no destaque inicial. O usuário confirmou adição e classificação; a arte informa categorias A, B e D. Fontes Barlow Condensed e DM Sans carregadas do Google Fonts, com fallback local. Ícones Lucide.
 
-Confirmar com o proprietário: categorias disponíveis, detalhes do serviço de classificação, preços, condições, horários e endereço completo da Encruzilhada. Não foram inventados depoimentos, índices de aprovação, preços ou garantias.
+Confirmar com o proprietário: detalhes e condições dos serviços de adição e classificação, preços, condições, horários e endereço completo da Encruzilhada. Não foram inventados depoimentos, índices de aprovação, preços ou garantias.
 
 ## Validação
 
