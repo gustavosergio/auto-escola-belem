@@ -285,7 +285,7 @@ export default function App() {
         <section id="servicos" className="section services">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">01 / ESCOLHA SEU CAMINHO</span>
+              <span className="eyebrow">ESCOLHA SEU CAMINHO</span>
               <h2>
                 Em que momento
                 <br />
@@ -380,7 +380,7 @@ export default function App() {
             </span>
           </div>
           <div className="about-copy">
-            <span className="eyebrow">02 / PRAZER, SOMOS A BELÉM</span>
+            <span className="eyebrow">PRAZER, SOMOS A BELÉM</span>
             <h2>
               Mais que dirigir.
               <br />É sobre <span>ir além.</span>
@@ -455,7 +455,7 @@ export default function App() {
         <section id="unidades" className="units section">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">03 / PERTO DE VOCÊ</span>
+              <span className="eyebrow">PERTO DE VOCÊ</span>
               <h2>
                 Dois endereços.
                 <br />A mesma direção.
@@ -491,7 +491,7 @@ export default function App() {
         </section>
         <section id="duvidas" className="faq section">
           <div>
-            <span className="eyebrow">04 / PODE PERGUNTAR</span>
+            <span className="eyebrow">PODE PERGUNTAR</span>
             <h2>
               Tire a dúvida.
               <br />
