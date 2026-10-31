@@ -1,0 +1,719 @@
+import { useState, useRef } from 'react';
+
+import {
+  ArrowUpRight,
+  ArrowRight,
+  Check,
+  ChevronDown,
+  MapPin,
+  Menu,
+  X,
+  CarFront,
+  MessageCircle,
+  Route,
+  RefreshCw,
+  ShieldCheck,
+  BookOpen,
+  Instagram,
+  Navigation,
+  MoveUpRight,
+} from 'lucide-react';
+
+const units = [
+  {
+    name: 'Campo Grande',
+    phone: '5581988703241',
+    display: '(81) 98870-3241',
+    address: 'Estrada de Belém, 1501 · Campo Grande, Recife',
+    map: 'https://goo.gl/maps/ZYJn2HN2qjyB5BxN6',
+  },
+  {
+    name: 'Encruzilhada',
+    phone: '5581992312150',
+    display: '(81) 99231-2150',
+    address: 'Encruzilhada · Recife, PE',
+    map: 'https://goo.gl/maps/8KwDkQsW5Wfd5ooUA',
+  },
+];
+const services = [
+  {
+    title: 'Primeira habilitação',
+    subtitle: 'O começo da sua independência.',
+    icon: CarFront,
+    text: 'Seu primeiro passo para sair do banco do passageiro. Converse com a nossa equipe para conhecer as opções de habilitação e começar sua jornada.',
+    items: [
+      'Orientação para começar',
+      'Preparação teórica e prática',
+      'Consulte categorias e disponibilidade',
+    ],
+    tag: 'SEU PRIMEIRO PASSO',
+  },
+  {
+    title: 'Renovação da CNH',
+    subtitle: 'Mais caminhos pela frente.',
+    icon: RefreshCw,
+    text: 'Chegou a hora de renovar? Entenda o que você precisa para dar continuidade à sua habilitação com o apoio da nossa equipe.',
+    items: [
+      'Orientação sobre o processo',
+      'Informações sobre documentação',
+      'Atendimento na sua unidade',
+    ],
+    tag: 'SIGA EM FRENTE',
+  },
+  {
+    title: 'Classificação',
+    subtitle: 'Seu próximo objetivo ao volante.',
+    icon: Route,
+    text: 'Quer conhecer novas possibilidades para sua habilitação? Fale com a equipe sobre o serviço de classificação e as opções disponíveis.',
+    items: [
+      'Consulta de opções e categorias',
+      'Orientação personalizada',
+      'Condições direto com a equipe',
+    ],
+    tag: 'NOVAS POSSIBILIDADES',
+  },
+  {
+    title: 'Aulas para habilitados',
+    subtitle: 'Reencontre a confiança para dirigir.',
+    icon: ShieldCheck,
+    text: 'Já tem CNH e quer voltar a dirigir? Dê o próximo passo com aulas para habilitados e converse sobre o que você deseja praticar.',
+    items: [
+      'Prática para quem já tem CNH',
+      'Conversa sobre seus objetivos',
+      'Consulte horários disponíveis',
+    ],
+    tag: 'CONFIANÇA NO CAMINHO',
+  },
+  {
+    title: 'Atualização',
+    subtitle: 'Conhecimento para seguir melhor.',
+    icon: BookOpen,
+    text: 'Mantenha o aprendizado em dia. Nossa equipe explica as opções de atualização oferecidas e ajuda você a encontrar o atendimento adequado.',
+    items: [
+      'Informações sobre atualização',
+      'Orientação para sua necessidade',
+      'Atendimento pelo WhatsApp',
+    ],
+    tag: 'APRENDER É CONTINUAR',
+  },
+];
+const questions = [
+  [
+    'Como começo minha primeira habilitação?',
+    'Escolha uma das nossas unidades e fale com a equipe pelo WhatsApp. Você recebe informações sobre as opções disponíveis, documentos, etapas e condições para começar.',
+  ],
+  [
+    'Quais são os valores e as formas de pagamento?',
+    'Os valores dependem do serviço escolhido. Solicite uma proposta pelo WhatsApp da unidade de sua preferência para consultar preços e condições atualizadas.',
+  ],
+  [
+    'Já tenho CNH. Posso fazer aulas?',
+    'Sim. A Autoescola Belém oferece aulas para habilitados. Conte à equipe quais são seus objetivos e consulte os horários e condições.',
+  ],
+  [
+    'Onde ficam as unidades?',
+    'Temos atendimento em Campo Grande e Encruzilhada, no Recife. Na seção de unidades, você pode abrir a localização no Google Maps e conversar diretamente com cada equipe.',
+  ],
+  [
+    'Posso treinar para a prova teórica?',
+    'No nosso Linktree você encontra o acesso ao simulador de prova teórica do Detran-PE. Consulte também a equipe sobre a preparação oferecida pela autoescola.',
+  ],
+];
+const whatsapp = (unit: number, service = 'os serviços da autoescola') =>
+  `https://wa.me/${units[unit].phone}?text=${encodeURIComponent(`Olá, Autoescola Belém! Vim pelo site e gostaria de saber mais sobre ${service}. Tenho interesse na unidade ${units[unit].name}.`)}`;
+
+function RoadArt() {
+  return (
+    <div className="road-art" aria-hidden="true">
+      <div className="art-grid" />
+      <div className="art-top">
+        <span>RECIFE, PE</span>
+        <span>08°03′ S · 34°52′ O</span>
+      </div>
+      <div className="freedom">
+        LIBERDADE
+        <br />
+        EM MOVIMENTO.
+      </div>
+      <svg viewBox="0 0 600 620" className="road-svg">
+        <defs>
+          <filter id="shadow">
+            <feDropShadow dx="8" dy="12" stdDeviation="10" floodOpacity=".3" />
+          </filter>
+          <linearGradient id="car" x2="1" y2="1">
+            <stop stopColor="#fff0a1" />
+            <stop offset=".35" stopColor="#ffd84c" />
+            <stop offset="1" stopColor="#d39e12" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
+          fill="none"
+          stroke="#45483f"
+          strokeWidth="140"
+        />
+        <path
+          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
+          fill="none"
+          stroke="#252821"
+          strokeWidth="128"
+        />
+        <path
+          d="M360 710V445 Q360 380 295 380H242 Q115 380 115 252 Q115 132 242 132H640"
+          fill="none"
+          stroke="#e4d99c"
+          strokeWidth="3"
+          strokeDasharray="17 18"
+          opacity=".7"
+        />
+        <path
+          d="M405 710V445 Q405 335 295 335H242 Q160 335 160 252 Q160 177 242 177H640"
+          fill="none"
+          stroke="#f3ca2d"
+          strokeWidth="2"
+        />
+        <path
+          d="M315 710V445 Q315 425 295 425H242 Q70 425 70 252 Q70 87 242 87H640"
+          fill="none"
+          stroke="#f3ca2d"
+          strokeWidth="2"
+        />
+        <g transform="translate(334 470) rotate(0)" filter="url(#shadow)">
+          <rect x="-6" y="20" width="11" height="23" rx="4" fill="#10130f" />
+          <rect x="49" y="20" width="11" height="23" rx="4" fill="#10130f" />
+          <rect x="-5" y="82" width="10" height="23" rx="4" fill="#10130f" />
+          <rect x="49" y="82" width="10" height="23" rx="4" fill="#10130f" />
+          <rect width="54" height="120" rx="19" fill="url(#car)" />
+          <path d="M8 32Q27 23 46 32L43 53H11Z" fill="#283b38" />
+          <path d="M11 83H43L46 100Q27 106 8 100Z" fill="#283b38" />
+          <rect x="12" y="55" width="30" height="25" rx="5" fill="#ffe47c" />
+          <path d="M6 39V86M48 39V86" stroke="#ac871d" strokeWidth="2" />
+          <rect x="6" y="8" width="12" height="5" rx="2" fill="#fff8dc" />
+          <rect x="36" y="8" width="12" height="5" rx="2" fill="#fff8dc" />
+          <path d="M7 112h10m20 0h10" stroke="#b2472d" strokeWidth="4" />
+        </g>
+        <g transform="translate(362 206) rotate(-9)">
+          <rect
+            width="102"
+            height="108"
+            rx="9"
+            fill="#171a15"
+            opacity=".25"
+            transform="translate(8 10)"
+          />
+          <rect width="102" height="108" rx="9" fill="#f6ca2d" />
+          <rect
+            x="7"
+            y="7"
+            width="88"
+            height="94"
+            rx="5"
+            fill="none"
+            stroke="#26291f"
+            strokeWidth="2"
+          />
+          <path
+            d="M35 78V35m0 0L20 51m15-16 15 16M67 77V34m0 43L52 61m15 16 15-16"
+            stroke="#24271f"
+            strokeWidth="6"
+            fill="none"
+          />
+        </g>
+      </svg>
+      <div className="journey-note">
+        <span className="pulse-dot" /> PRÓXIMA PARADA
+        <span>
+          Sua independência <ArrowUpRight size={18} />
+        </span>
+      </div>
+      <div className="art-bottom">
+        <span>SEU FUTURO TEM NOVOS CAMINHOS.</span>
+        <Navigation size={20} />
+      </div>
+    </div>
+  );
+}
+export default function App() {
+  const [menu, setMenu] = useState(false);
+  const [service, setService] = useState(0);
+  const [unit, setUnit] = useState(0);
+  const [faq, setFaq] = useState<number | null>(0);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLElement | null>(null);
+  const contact = (index?: number) => {
+    if (index !== undefined) setService(index);
+    opener.current = document.activeElement as HTMLElement;
+    dialog.current?.showModal();
+  };
+  const close = () => {
+    dialog.current?.close();
+    opener.current?.focus();
+  };
+  const ActiveIcon = services[service].icon;
+  return (
+    <>
+      <a className="skip-link" href="#conteudo">
+        Pular para o conteúdo
+      </a>
+      <div className="topline">
+        <span>
+          <MapPin size={13} /> DUAS UNIDADES, UM NOVO CAMINHO.
+        </span>
+        <span>
+          Campo Grande <i /> Encruzilhada
+        </span>
+      </div>
+      <header>
+        <a href="#" className="brand" aria-label="Autoescola Belém, início">
+          <img src="/images/logo.jpg" alt="" width="48" height="48" />
+          <span>
+            AUTOESCOLA
+            <strong>
+              BELÉM<span>®</span>
+            </strong>
+          </span>
+        </a>
+        <nav aria-label="Menu principal" className={menu ? 'nav open' : 'nav'}>
+          {[
+            ['Serviços', 'servicos'],
+            ['A Belém', 'sobre'],
+            ['Unidades', 'unidades'],
+            ['Dúvidas', 'duvidas'],
+          ].map(([name, id]) => (
+            <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
+              {name}
+            </a>
+          ))}
+        </nav>
+        <button className="btn btn-dark header-cta" onClick={() => contact()}>
+          Começar minha jornada <ArrowUpRight size={18} />
+        </button>
+        <button
+          className="menu-toggle"
+          aria-label={menu ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={menu}
+          onClick={() => setMenu(!menu)}
+        >
+          {menu ? <X /> : <Menu />}
+        </button>
+      </header>
+      <main id="conteudo">
+        <section className="hero">
+          <div className="hero-copy">
+            <div className="eyebrow">
+              <span className="small-line" /> AUTOESCOLA BELÉM · RECIFE
+            </div>
+            <h1>
+              A vida acontece
+              <br />
+              lá fora.
+              <br />
+              <span>Vá dirigir.</span>
+              <svg viewBox="0 0 300 14" aria-hidden="true">
+                <path d="M3 10Q130-4 295 6" fill="none" stroke="currentColor" strokeWidth="5" />
+              </svg>
+            </h1>
+            <p>
+              A primeira habilitação. A confiança de voltar ao volante. Seja qual for o seu próximo
+              passo, a Belém vai com você.
+            </p>
+            <div className="hero-buttons">
+              <button className="btn btn-yellow" onClick={() => contact(0)}>
+                Quero conquistar minha CNH <ArrowUpRight size={20} />
+              </button>
+              <a href="#servicos" className="text-link">
+                Conhecer os serviços <ArrowRight size={17} />
+              </a>
+            </div>
+            <div className="hero-foot">
+              <span className="mini-icon">
+                <ShieldCheck size={22} />
+              </span>
+              <span>
+                Seu caminho começa com uma conversa.
+                <br />
+                <strong>Fale diretamente com a nossa equipe.</strong>
+              </span>
+            </div>
+          </div>
+          <RoadArt />
+        </section>
+        <div className="ribbon">
+          <span>
+            <CarFront /> PRIMEIRA HABILITAÇÃO
+          </span>
+          <i>✳</i>
+          <span>
+            <RefreshCw /> RENOVAÇÃO
+          </span>
+          <i>✳</i>
+          <span>
+            <ShieldCheck /> AULAS PARA HABILITADOS
+          </span>
+          <i>✳</i>
+          <span>
+            <Route /> NOVOS CAMINHOS
+          </span>
+        </div>
+        <section id="servicos" className="section services">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">01 / ESCOLHA SEU CAMINHO</span>
+              <h2>
+                Em que momento
+                <br />
+                você está?
+              </h2>
+            </div>
+            <p>
+              Todo motorista tem um ponto de partida.
+              <br />
+              Encontre o serviço para o seu próximo passo.
+            </p>
+          </div>
+          <div className="service-layout">
+            <div
+              className="service-tabs"
+              role="tablist"
+              aria-label="Serviços"
+              aria-orientation="vertical"
+            >
+              {services.map((s, i) => (
+                <button
+                  role="tab"
+                  aria-selected={service === i}
+                  aria-controls="service-panel"
+                  id={`service-tab-${i}`}
+                  tabIndex={service === i ? 0 : -1}
+                  key={s.title}
+                  onClick={() => setService(i)}
+                  onKeyDown={(e) => {
+                    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+                      e.preventDefault();
+                      const next =
+                        e.key === 'Home'
+                          ? 0
+                          : e.key === 'End'
+                            ? 4
+                            : (i + (e.key === 'ArrowDown' ? 1 : 4)) % 5;
+                      setService(next);
+                      document.getElementById(`service-tab-${next}`)?.focus();
+                    }
+                  }}
+                  className={service === i ? 'service-tab active' : 'service-tab'}
+                >
+                  <span className="tab-number">0{i + 1}</span>
+                  {s.title}
+                  <ArrowUpRight size={20} />
+                </button>
+              ))}
+            </div>
+            <div
+              id="service-panel"
+              role="tabpanel"
+              aria-labelledby={`service-tab-${service}`}
+              className="service-panel"
+              key={service}
+            >
+              <div className="panel-top">
+                <span className="eyebrow">{services[service].tag}</span>
+                <ActiveIcon size={52} strokeWidth={1.2} />
+              </div>
+              <h3>{services[service].subtitle}</h3>
+              <p>{services[service].text}</p>
+              <ul>
+                {services[service].items.map((t) => (
+                  <li key={t}>
+                    <Check size={16} />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <button className="text-link" onClick={() => contact()}>
+                Quero saber mais <ArrowUpRight size={20} />
+              </button>
+              <span className="panel-decoration" aria-hidden="true">
+                0{service + 1}
+              </span>
+            </div>
+          </div>
+        </section>
+        <section id="sobre" className="about section">
+          <div className="about-photo">
+            <img
+              src="/images/facade.webp"
+              alt="Fachada amarela da Autoescola Belém, em registro do site da escola"
+              loading="lazy"
+              width="900"
+              height="675"
+            />
+            <span className="photo-label">
+              <MapPin size={16} /> NOSSA HISTÓRIA É AQUI, NO RECIFE.
+            </span>
+          </div>
+          <div className="about-copy">
+            <span className="eyebrow">02 / PRAZER, SOMOS A BELÉM</span>
+            <h2>
+              Mais que dirigir.
+              <br />É sobre <span>ir além.</span>
+            </h2>
+            <p>
+              Ir ao trabalho por conta própria. Pegar a estrada. Ganhar autonomia no dia a dia. A
+              gente sabe que uma habilitação abre muito mais do que a porta de um carro.
+            </p>
+            <p>
+              Com unidades em Campo Grande e Encruzilhada, a Autoescola Belém faz parte desse
+              caminho no Recife — da primeira habilitação ao retorno ao volante.
+            </p>
+            <div className="about-facts">
+              <div>
+                <strong>02</strong>
+                <span>unidades no Recife</span>
+              </div>
+              <div>
+                <MoveUpRight size={40} strokeWidth={1.3} />
+                <span>um novo caminho para você</span>
+              </div>
+            </div>
+            <a
+              className="text-link"
+              href="https://www.instagram.com/cfcbelem/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Acompanhe a Belém no Instagram <Instagram size={20} />
+            </a>
+          </div>
+        </section>
+        <section className="steps section">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">SEM COMPLICAR O PRIMEIRO PASSO</span>
+              <h2>Vamos sair do lugar?</h2>
+            </div>
+            <button className="btn btn-outline" onClick={() => contact()}>
+              Vamos conversar <MessageCircle size={18} />
+            </button>
+          </div>
+          <div className="steps-grid">
+            {[
+              [
+                '01',
+                'Escolha seu objetivo',
+                'Primeira habilitação, renovação ou mais confiança para dirigir? Conta pra gente.',
+              ],
+              [
+                '02',
+                'Encontre sua unidade',
+                'Campo Grande ou Encruzilhada. Escolha o atendimento mais perto de você.',
+              ],
+              [
+                '03',
+                'Converse com a equipe',
+                'Tire suas dúvidas, conheça as condições e descubra como começar.',
+              ],
+            ].map(([n, t, p]) => (
+              <div key={n}>
+                <span className="step-number">
+                  {n}
+                  <ArrowRight size={22} />
+                </span>
+                <h3>{t}</h3>
+                <p>{p}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section id="unidades" className="units section">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">03 / PERTO DE VOCÊ</span>
+              <h2>
+                Dois endereços.
+                <br />A mesma direção.
+              </h2>
+            </div>
+            <p>
+              Escolha sua unidade e fale direto com a equipe.
+              <br />
+              Seu próximo caminho começa no Recife.
+            </p>
+          </div>
+          <div className="units-grid">
+            {units.map((u, i) => (
+              <article className="unit-card" key={u.name}>
+                <div className="unit-top">
+                  <span>UNIDADE 0{i + 1}</span>
+                  <MapPin size={23} />
+                </div>
+                <h3>{u.name}</h3>
+                <p>{u.address}</p>
+                <a href={u.map} target="_blank" rel="noreferrer" className="map-link">
+                  Ver localização no mapa <ArrowUpRight size={16} />
+                </a>
+                <div className="unit-bottom">
+                  <span>{u.display}</span>
+                  <a className="btn btn-dark" href={whatsapp(i)} target="_blank" rel="noreferrer">
+                    Falar com a unidade <MessageCircle size={17} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section id="duvidas" className="faq section">
+          <div>
+            <span className="eyebrow">04 / PODE PERGUNTAR</span>
+            <h2>
+              Tire a dúvida.
+              <br />
+              Dê a partida.
+            </h2>
+            <p>
+              Não encontrou o que precisava?
+              <br />A nossa equipe conversa com você.
+            </p>
+            <button className="text-link" onClick={() => contact()}>
+              Chamar no WhatsApp <ArrowUpRight size={18} />
+            </button>
+          </div>
+          <div className="faq-list">
+            {questions.map(([q, a], i) => (
+              <div className="faq-item" key={q}>
+                <h3>
+                  <button
+                    aria-expanded={faq === i}
+                    aria-controls={`answer-${i}`}
+                    onClick={() => setFaq(faq === i ? null : i)}
+                  >
+                    {q}
+                    <ChevronDown size={20} className={faq === i ? 'rotated' : ''} />
+                  </button>
+                </h3>
+                <div id={`answer-${i}`} hidden={faq !== i}>
+                  <p>
+                    {a}
+                    {i === 4 && (
+                      <>
+                        {' '}
+                        <a href="https://linktr.ee/cfcbelem" target="_blank" rel="noreferrer">
+                          Acessar Linktree oficial ↗
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="final-cta">
+          <div>
+            <span className="eyebrow">O PRÓXIMO PASSO É SEU.</span>
+            <h2>
+              Seu lugar é<br />
+              <span>no volante.</span>
+            </h2>
+            <button className="btn btn-dark" onClick={() => contact()}>
+              Vamos começar? <ArrowUpRight size={22} />
+            </button>
+          </div>
+          <div className="big-arrow" aria-hidden="true">
+            <MoveUpRight strokeWidth={0.8} />
+          </div>
+          <span className="cta-caption">AUTOESCOLA BELÉM · RECIFE, PE</span>
+        </section>
+      </main>
+      <footer>
+        <a href="#" className="brand">
+          <span>
+            AUTOESCOLA
+            <strong>
+              BELÉM<span>®</span>
+            </strong>
+          </span>
+        </a>
+        <p>Novos caminhos começam aqui.</p>
+        <div>
+          <a href="https://www.instagram.com/cfcbelem/" target="_blank" rel="noreferrer">
+            Instagram <ArrowUpRight size={14} />
+          </a>
+          <a href="https://linktr.ee/cfcbelem" target="_blank" rel="noreferrer">
+            Nossos links <ArrowUpRight size={14} />
+          </a>
+        </div>
+        <span className="copyright">© {new Date().getFullYear()} Autoescola Belém</span>
+      </footer>
+      <button
+        className="floating-contact"
+        onClick={() => contact()}
+        aria-label="Escolher unidade para conversar pelo WhatsApp"
+      >
+        <MessageCircle size={25} />
+        <span>Vamos conversar?</span>
+      </button>
+      <dialog
+        aria-labelledby="contact-title"
+        ref={dialog}
+        onClick={(e) => {
+          if (e.target === dialog.current) close();
+        }}
+        onCancel={close}
+      >
+        <div className="contact-dialog">
+          <button className="dialog-close" onClick={close} aria-label="Fechar">
+            <X />
+          </button>
+          <span className="eyebrow">SEU CAMINHO COMEÇA AQUI</span>
+          <h2 id="contact-title">
+            Vamos dar
+            <br />o primeiro passo?
+          </h2>
+          <p>Escolha o serviço e a unidade. Vamos preparar sua mensagem para a equipe.</p>
+          <label htmlFor="service-select">O que você procura?</label>
+          <select
+            id="service-select"
+            value={service}
+            onChange={(e) => setService(Number(e.target.value))}
+          >
+            {services.map((s, i) => (
+              <option key={s.title} value={i}>
+                {s.title}
+              </option>
+            ))}
+          </select>
+          <fieldset>
+            <legend>Qual unidade fica melhor para você?</legend>
+            <div className="unit-options">
+              {units.map((u, i) => (
+                <label key={u.name} className={unit === i ? 'selected' : ''}>
+                  <input
+                    type="radio"
+                    name="unit"
+                    value={i}
+                    checked={unit === i}
+                    onChange={() => setUnit(i)}
+                  />
+                  <MapPin size={18} />
+                  {u.name}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <a
+            className="btn btn-yellow"
+            href={whatsapp(unit, services[service].title)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle size={20} /> Continuar no WhatsApp <ArrowUpRight size={18} />
+          </a>
+          <small>
+            A conversa será aberta com a unidade {units[unit].name}.<br />A mensagem só é enviada
+            quando você confirmar no WhatsApp.
+          </small>
+        </div>
+      </dialog>
+    </>
+  );
+}
